@@ -25,7 +25,7 @@ class Customers extends BaseDB {
     public function setDataNastere($datanastere){
         $this->datanastere=$dataNastere;
     }
-    public function getDataNastere($datanastere){
+    public function getDataNastere(){
         return $this->datanastere;
     }
     public function setEmail($email){
