@@ -63,7 +63,7 @@ class Pagina extends BaseDB{
     public function insert(){
         $pdo = $this->db;
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = "INSERT INTO pagini (titlu, url, continut, este) values(?, ?, ?, ?, ?)";
+	$sql = "INSERT INTO pagini (titlu, url, continut, estePublicata, dataPublicare) values(?, ?, ?, ?, ?)";
 	$q = $pdo->prepare($sql);
 	$q->execute(array(
                 
