@@ -38,7 +38,8 @@ class Pachet extends BaseDB {
     }
 
     public function insert() {
-        $db = Database::connect();
+        $db = $this->db;
+        //$db = Database::connect();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO pachete (caracteristici,suma_plata,tip_pachet) values(?, ?, ?)";
         $q = $db->prepare($sql);
@@ -47,7 +48,7 @@ class Pachet extends BaseDB {
             $this->getSumaPlata(),
             $this->getTipPachet()
         ));
-        Database::disconnect();
+        //Database::disconnect();
     }
 
     public function update() {
