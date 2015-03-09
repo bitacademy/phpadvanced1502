@@ -18,7 +18,7 @@ class Pachet extends BaseDB {
     private $caracteristici;
     private $sumaPlata;
 
-    public function returnneazaPachetDupaIdVideo($idVideo) {
+    public function returneazaPachetDupaIdVideo($idVideo) {
 
         $db = Database::connect();
         $sql = 'SELECT id FROM `video` WHERE `id_pachet` = ?';
