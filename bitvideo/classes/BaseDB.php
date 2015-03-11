@@ -32,6 +32,7 @@ class BaseDB {
         $func = create_function('$c', 'return "_" . strtolower($c[1]);');
         return preg_replace_callback('/([A-Z])/', $func, $str);
     }
+    
 
     /**
      * Translates a string with underscores
