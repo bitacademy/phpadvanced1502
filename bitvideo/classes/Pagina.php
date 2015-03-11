@@ -69,21 +69,27 @@ class Pagina extends BaseDB{
                 
             $this->getTitlu(),
             $this->getUrl(),
+            $this->getContinut(),
+            $this->getEstePublicata(),
+            $this->getDataPublicare()
             
                 ));
 	
     }
-    public function update(){                   //update.php
+    public function update(){
         
         
         $pdo = $this->db;
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$sql = "UPDATE pagini  set titlu = ?, ...., data_publicare = ? WHERE id = ?";
+		$sql = "UPDATE pagini  set titlu = ?, url = ?, continut = ?, estePublicata = ?, dataPublicare = ? WHERE id = ?";
 		$q = $pdo->prepare($sql);
 		$q->execute(array(
                         
                     $this->getTitlu(),
-                    ......
+                    $this->getUrl(),
+                    $this->getContinut(),
+                    $this->getEstePublicata(),
+                    $this->getDataPublicare(),
                     $this->getId()
                     
                         ));
