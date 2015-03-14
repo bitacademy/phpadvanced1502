@@ -3,7 +3,7 @@
 /**
  * Description of BaseDB
  *
- * @author dsocol
+ * @author vlapop
  */
 class BaseDB {
 
@@ -52,5 +52,16 @@ class BaseDB {
         //print $func;
         return preg_replace_callback('/_([a-z])/', $func, $str);
     }
+    
+    //adaug aceleasi functii pe care le-a adaugat mister socol , cu mai putin cod in ele
+    // transformam un string din underscore format in camelCase format
+    function toCamelCase($str) {
+       return preg_replace_callback('~_([a-z])~', function ($match) { return strtoupper($match[1]); }, $str);
+
+}
+    //transformam un string din camelCase format in underscore format
+    function fromCamelCase($str) {
+        return preg_replace_callback('~([A-Z])~', function ($match) { return '_' . strtolower($match[1]); }, $str);
+	}
 
 }
