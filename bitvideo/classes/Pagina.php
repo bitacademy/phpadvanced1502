@@ -63,7 +63,7 @@ class Pagina extends BaseDB{
     public function insert(){
         $pdo = $this->db;
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = "INSERT INTO pagini (titlu, url, continut, estePublicata, dataPublicare) values(?, ?, ?, ?, ?)";
+	$sql = "INSERT INTO pagini (titlu, url, continut, tipPagina, estePublicata, dataPublicare) values(?, ?, ?, ?, ?, ?)";
 	$q = $pdo->prepare($sql);
 	$q->execute(array(
                 
@@ -81,13 +81,14 @@ class Pagina extends BaseDB{
         
         $pdo = $this->db;
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$sql = "UPDATE pagini  set titlu = ?, url = ?, continut = ?, estePublicata = ?, dataPublicare = ? WHERE id = ?";
+		$sql = "UPDATE pagini  set titlu = ?, url = ?, continut = ?, tipPagina = ?, estePublicata = ?, dataPublicare = ? WHERE id = ?";
 		$q = $pdo->prepare($sql);
 		$q->execute(array(
                         
                     $this->getTitlu(),
                     $this->getUrl(),
                     $this->getContinut(),
+                    $this->getTipPagina(),
                     $this->getEstePublicata(),
                     $this->getDataPublicare(),
                     $this->getId()
