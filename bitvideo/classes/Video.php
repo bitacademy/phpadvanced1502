@@ -16,8 +16,8 @@ class Video extends BaseDB {
         $q = $db->prepare($sql);
         $q->execute(array(
             $this->getUrl(),
-            $this->getId_pachet(),
-            $this->getData_publicare(),
+            $this->getIdPachet(),
+            $this->getDataPublicare(),
             $this->getStatus()
         ));
     }
@@ -30,8 +30,8 @@ class Video extends BaseDB {
         $q = $db->prepare($sql);
         $q->execute(array(
             $this->getUrl(),
-            $this->getId_pachet(),
-            $this->getData_publicare(),
+            $this->getIdPachet(),
+            $this->getDataPublicare(),
             $this->getStatus(),
             $this->getId()
         ));
@@ -63,19 +63,19 @@ class Video extends BaseDB {
         $this->url;
     }
     
-    public function setId_pachet($id_pachet) {
+    public function setIdPachet($id_pachet) {
         $this->id_pachet = $id_pachet;
     }    
     
-    public function getId_pachet() {
+    public function getIdPachet() {
         return $this->id_pachet;
     }
     
-    public function setData_publicare($data_publicare){
+    public function setDataPublicare($data_publicare){
         $this->data_publicare = $data_publicare;
     }
     
-    public function getData_publicare(){
+    public function getDataPublicare(){
         return $this->data_publicare;
     }
     
