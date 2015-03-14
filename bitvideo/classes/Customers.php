@@ -5,7 +5,7 @@ class Customers extends BaseDB {
     private $name;
     private $dataNastere;
     private $email;
-    private $mobile;
+    private $mobil;
     private $adresa;
     private $dataInscriere;
     private $dataLogare;
@@ -15,12 +15,12 @@ class Customers extends BaseDB {
     public function insert() {
         $db = $this->db;
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO customers (name, email, mobile, data_nastere, adresa, data_inscriere, data_logare) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO customers (name, email, mobil, data_nastere, adresa, data_inscriere, data_logare) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $q = $db->prepare($sql);
         $q->execute(array(
             $this->getName(),
             $this->getEmail(),
-            $this->getMobile(),
+            $this->getMobil(),
             $this->getDataNastere(),
             $this->getAdresa(),
             $this->getDataInscriere(),
@@ -32,12 +32,12 @@ class Customers extends BaseDB {
     public function update() {
         $db = $this->db;
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "UPDATE customers SET name = ?, email = ?, mobile = ?, data_nastere = ?, adresa = ?, data_inscriere = ?, data_logare = ? WHERE id = ?";
+        $sql = "UPDATE customers SET name = ?, email = ?, mobil = ?, data_nastere = ?, adresa = ?, data_inscriere = ?, data_logare = ? WHERE id = ?";
         $q = $db->prepare($sql);
         $q->execute(array(
             $this->getName(),
             $this->getEmail(),
-            $this->getMobile(),
+            $this->getMobil(),
             $this->getDataNastere(),
             $this->getAdresa(),
             $this->getDataInscriere(),
@@ -87,11 +87,11 @@ class Customers extends BaseDB {
     public function getEmail(){
         return $this->email;
     }
-    public function setMobile($mobile){
-        $this->mobile=$mobile;
+    public function setMobil($mobil){
+        $this->mobil=$mobil;
     }
-    public function getMobile(){
-        return $this->mobile;
+    public function getMobil(){
+        return $this->mobil;
     }
     public function setDataInscriere($DataInscriere){
         $this->dataInscriere=$DataInscriere;
