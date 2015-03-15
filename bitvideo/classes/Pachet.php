@@ -17,6 +17,14 @@ class Pachet extends BaseDB {
     protected $tipPachet;
     protected $caracteristici;
     protected $sumaPlata;
+    private $tipPachet;
+    private $caracteristici;
+    private $sumaPlata;
+    protected $numeTabel = "pachete";
+    
+    public function getNumeTabel(){
+        return $this->numeTabel;
+    }
 
     
      public function returneazaPachetDupaIdVideo($idVideo) {

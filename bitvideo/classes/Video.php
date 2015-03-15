@@ -1,13 +1,55 @@
 <?php
 
-class Video {
+class Video extends BaseDB {
     
     private $id;
     private $url;
     private $id_pachet;
     private $data_publicare;
     private $status;
-
+    protected $numeTabel = "video";
+    
+    public function getNumeTabel() {
+        return $this->numeTabel;
+    }
+    
+    
+     public function insert() {
+        $db = $this->db;
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO video (url, id_pachet, data_publicare, status) values(?, ?, ?, ?)";
+        $q = $db->prepare($sql);
+        $q->execute(array(
+            $this->getUrl(),
+            $this->getIdPachet(),
+            $this->getDataPublicare(),
+            $this->getStatus()
+        ));
+    }
+    
+    
+    public function update() {
+        $db = $this->db;
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "UPDATE video  set url = ?, id_pachet = ?, data_publicare = ?, status = ? WHERE id = ?";
+        $q = $db->prepare($sql);
+        $q->execute(array(
+            $this->getUrl(),
+            $this->getIdPachet(),
+            $this->getDataPublicare(),
+            $this->getStatus(),
+            $this->getId()
+        ));
+    }
+    
+    
+    public function save() {
+        if($this->getId = true){
+            $this->update();
+        }else {
+            $this->insert();
+        }
+    }
 
     public function setId($id) {
         $this->id = $id;
@@ -26,19 +68,19 @@ class Video {
         $this->url;
     }
     
-    public function setId_pachet($id_pachet) {
+    public function setIdPachet($id_pachet) {
         $this->id_pachet = $id_pachet;
     }    
     
-    public function getId_pachet() {
+    public function getIdPachet() {
         return $this->id_pachet;
     }
     
-    public function setData_publicare($data_publicare){
+    public function setDataPublicare($data_publicare){
         $this->data_publicare = $data_publicare;
     }
     
-    public function getData_publicare(){
+    public function getDataPublicare(){
         return $this->data_publicare;
     }
     

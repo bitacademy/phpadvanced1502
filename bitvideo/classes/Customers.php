@@ -9,6 +9,56 @@ class Customers extends BaseDB {
     private $adresa;
     private $dataInscriere;
     private $dataLogare;
+    protected $numeTabel = "customers";
+    
+    public function getNumeTabel() {
+        return $this->numeTabel;
+    }
+    
+    //adaugare 3 functii : 1->insert, 2->update, 3->save
+    
+    public function insert() {
+        $db = $this->db;
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO customers (name, email, mobil, data_nastere, adresa, data_inscriere, data_logare) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $q = $db->prepare($sql);
+        $q->execute(array(
+            $this->getName(),
+            $this->getEmail(),
+            $this->getMobil(),
+            $this->getDataNastere(),
+            $this->getAdresa(),
+            $this->getDataInscriere(),
+            $this->getDataLogare()
+            ));
+    }
+    
+    
+    public function update() {
+        $db = $this->db;
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "UPDATE customers SET name = ?, email = ?, mobil = ?, data_nastere = ?, adresa = ?, data_inscriere = ?, data_logare = ? WHERE id = ?";
+        $q = $db->prepare($sql);
+        $q->execute(array(
+            $this->getName(),
+            $this->getEmail(),
+            $this->getMobil(),
+            $this->getDataNastere(),
+            $this->getAdresa(),
+            $this->getDataInscriere(),
+            $this->getDataLogare(),
+            $this->getID()
+            ));
+    }
+    
+    
+    public function save() {
+        if($this->getID() != null)
+        $this->update();
+        else {
+        $this->insert();
+        }
+    }
     
     public function setId($id){
         $this->id=$id;
@@ -28,6 +78,14 @@ class Customers extends BaseDB {
     public function getDataNastere(){
         return $this->datanastere;
     }
+    
+    public function setAdresa($adresa) {
+        $this->adresa = $adresa;
+    }
+    
+    public function getAdresa() {
+        return $this->adresa;
+    }
     public function setEmail($email){
         $this->email=$email;
     }
@@ -40,7 +98,7 @@ class Customers extends BaseDB {
     public function getMobil(){
         return $this->mobil;
     }
-    public function setDataInsciere($DataInscriere){
+    public function setDataInscriere($DataInscriere){
         $this->dataInscriere=$DataInscriere;
     }
     public function getDataInscriere() {
