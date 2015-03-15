@@ -8,7 +8,7 @@
 class BaseDB {
 
     protected $db;
-
+    protected $numeTabel ;
     public function __construct(PDO $db) {
 
 
@@ -19,6 +19,42 @@ class BaseDB {
         $this->db = $db;
     }
 
+    
+    public function getNumeTabel(){
+        return $this->numeTabel;
+    }
+    
+    public function insert(){
+//        if ( $this->getNumeTabel() == null ) throw new Exception ('Numele tabelului este invalid');
+//           $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//           
+//           $numeProprietati = get_class_vars(get_class($this));
+//           // [id, url, dataPublicare]
+//           
+//           $arraySemneIntrebare = null;
+//           foreach ($numeProprietati as $valoare){
+//               $arraySemneIntrebare[] = "?";
+//            // id, url, data_publicare
+//               //dataPublicare => data_publicare
+//               $coloanaTabel = $this->fromCamelCase($valoare);
+//               //data_publicare => $this->dataPublicare
+//               $corespondentaTabelObiect[$coloanaTabel] = $valoare;
+//               //$this->dataPublicare => data_publicare
+//               $corespondentaObiectTabel[$valoare] = $coloanaTabel;
+//           }
+//           //$arraySemneIntrebare = array("?","?","?")
+//           // "?,?,?"
+//           
+//           $sql = "INSERT INTO "  . $this->getNumeTabel()  .  " ( ". implode(",", $corespondentaObiectTabel) . ")"
+//                    . " values(".    implode(",", $arraySemneIntrebare) .")";
+//           $q = $this->db->prepare($sql);
+//           $q->execute($corespondentaTabelObiect);
+//            
+//        
+    }
+    
+    
+    
     /**
      * Translates a camel case string into a string with
      * underscores (e.g. firstName -> first_name)
