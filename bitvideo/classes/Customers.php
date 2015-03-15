@@ -9,6 +9,7 @@ class Customers extends BaseDB {
     private $adresa;
     private $dataInscriere;
     private $dataLogare;
+    protected $numeTabel = "customers";
     
     //adaugare 3 functii : 1->insert, 2->update, 3->save
     
