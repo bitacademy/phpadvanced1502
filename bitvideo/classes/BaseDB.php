@@ -31,23 +31,34 @@ class BaseDB {
         return $this->numeTabel;
     }
     
+   
     public function insert(){
-        if($this->numeTabel() == null) throw new Exception('Nume table invalid');
-        
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        $numeProprietati = get_class_vars(get_class($this));
-        
-        $numarSemneIntreabare = 0;
-        
-        foreach ($numeProprietati as $valoare) {
-            $arraySemneIntrebare[] = "?";
-            
-        }
-        
-        $sql = "INSERT INTO " . $this->getNumeTabel() . " ( ".implode(",",$numeProprietati) . ")"
-                . " values (". implode(",", $numeProprietati);
-        
+//        if ( $this->getNumeTabel() == null ) throw new Exception ('Numele tabelului este invalid');
+//           $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//           
+//           $numeProprietati = get_class_vars(get_class($this));
+//           // [id, url, dataPublicare]
+//           
+//           $arraySemneIntrebare = null;
+//           foreach ($numeProprietati as $valoare){
+//               $arraySemneIntrebare[] = "?";
+//            // id, url, data_publicare
+//               //dataPublicare => data_publicare
+//               $coloanaTabel = $this->fromCamelCase($valoare);
+//               //data_publicare => $this->dataPublicare
+//               $corespondentaTabelObiect[$coloanaTabel] = $valoare;
+//               //$this->dataPublicare => data_publicare
+//               $corespondentaObiectTabel[$valoare] = $coloanaTabel;
+//           }
+//           //$arraySemneIntrebare = array("?","?","?")
+//           // "?,?,?"
+//           
+//           $sql = "INSERT INTO "  . $this->getNumeTabel()  .  " ( ". implode(",", $corespondentaObiectTabel) . ")"
+//                    . " values(".    implode(",", $arraySemneIntrebare) .")";
+//           $q = $this->db->prepare($sql);
+//           $q->execute($corespondentaTabelObiect);
+//            
+//        
     }
     
     public static function showAll($db, $tableName, $limit = 20){
