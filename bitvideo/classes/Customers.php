@@ -11,6 +11,10 @@ class Customers extends BaseDB {
     private $dataLogare;
     protected $numeTabel = "customers";
     
+    public function getNumeTabel() {
+        return $this->numeTabel;
+    }
+    
     //adaugare 3 functii : 1->insert, 2->update, 3->save
     
     public function insert() {
