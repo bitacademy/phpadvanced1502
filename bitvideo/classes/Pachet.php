@@ -14,11 +14,12 @@
 class Pachet extends BaseDB {
 
     private $id;
-    private $tipPachet;
-    private $caracteristici;
-    private $sumaPlata;
+    protected $tipPachet;
+    protected $caracteristici;
+    protected $sumaPlata;
 
-    public function returneazaPachetDupaIdVideo($idVideo) {
+    
+     public function returneazaPachetDupaIdVideo($idVideo) {
 
         $db = Database::connect();
         $sql = 'SELECT id FROM `video` WHERE `id_pachet` = ?';
@@ -89,5 +90,16 @@ class Pachet extends BaseDB {
     public function setSumaPlata($sumaPlata) {
         $this->sumaPlata = $sumaPlata;
     }
+    
+    
+      function GetClassVars()
+    {
+        return array_keys(get_class_vars(get_class($this))); // $this
+    }
 
+      function afisareProprietati() {
+       return get_class_vars(get_class($this));
+        //  return get_class_vars($this);
+    }
 }
+
