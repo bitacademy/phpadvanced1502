@@ -10,7 +10,7 @@ class BaseDB {
     protected $db;
     protected $numeTabel;
 
-    public function __construct(PDO $db) {
+    public function __construct($db) {
 
 
         if ($db == null) {
@@ -49,7 +49,7 @@ class BaseDB {
                 . " values (". implode(",", $numeProprietati);
         
     }
-    
+   
     public static function showAll($db, $tableName, $limit = 20){
         
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -59,13 +59,33 @@ class BaseDB {
         $objectReturnArray = array();
         while ($data = $q->fetch(PDO::FETCH_ASSOC))
         {
-//            $object = new self($db);
-//            
-//           // 
-//            foreach ($data as $key => $value) {
-//                $object->$key = $value;
-//            }
-            $objectReturnArray[$data['id']] = $data;
+       
+            $object = new self($db);
+
+
+            foreach ($data as $key => $value) {
+                //$key = id_pachet
+                //$value = 1
+                
+                //$key = data_publicare
+                //$value = "2015-03-01 00:00:00"
+                $proprietateClasa = self::to_camel_case($key);
+                //idPachet = conversie('id_pachet')
+                //dataPublicare
+                $numeleFunctieiClaseiSet = "set" .   ucfirst($proprietateClasa); 
+
+                //setDataPublicare
+                $object->$numeleFunctieiClaseiSet($value);
+//                $object->setDataPublicare("2015-03-01 00:00:00");
+                
+                
+                
+//                $object->idPachet = 1;
+//                $object->idpachet = 1;
+//                $object->dataPublicare = "2015-03-01 00:00:00";
+                
+            }
+            $objectReturnArray[$data['id']] = $object;
 //            print_r($data);
         }
         return $objectReturnArray;
@@ -97,7 +117,7 @@ class BaseDB {
      */
 //print to_camel_case("asta_e_cu_underscore", true);
 
-    function to_camel_case($str, $capitalise_first_char = false) {
+    static function to_camel_case($str, $capitalise_first_char = false) {
         if ($capitalise_first_char) {
             $str[0] = strtoupper($str[0]);
         }
