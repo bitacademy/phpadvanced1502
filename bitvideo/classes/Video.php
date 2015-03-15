@@ -7,6 +7,11 @@ class Video extends BaseDB {
     private $id_pachet;
     private $data_publicare;
     private $status;
+    protected $numeTabel = "video";
+    
+    public function getVideo() {
+        return $this->numeTabel;
+    }
     
     
      public function insert() {
