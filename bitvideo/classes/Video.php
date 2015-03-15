@@ -9,7 +9,7 @@ class Video extends BaseDB {
     private $status;
     protected $numeTabel = "video";
     
-    public function getVideo() {
+    public function getNumeTabel() {
         return $this->numeTabel;
     }
     
