@@ -8,6 +8,11 @@ class Pagina extends BaseDB{
     private $continut;
     private $estePublicata;
     private $dataPublicare;
+    protected $numeTabel = "pagini";
+    
+    public function getNumeTabel() {
+    	return $this->numeTabel;
+    }
     
     public function setId($id){
         $this->id = $id;
