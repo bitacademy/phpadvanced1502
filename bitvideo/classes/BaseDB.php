@@ -8,6 +8,7 @@
 class BaseDB {
 
     protected $db;
+    protected $numeTabel;
 
     public function __construct(PDO $db) {
 
@@ -19,6 +20,58 @@ class BaseDB {
         $this->db = $db;
     }
 
+    
+    public function afisareParametri(){
+        //$str = "BaseDB";
+        return get_class_vars(get_class($this)); 
+             //print get_class_vars($str);
+    }
+    
+    public function getNumeTabel(){
+        return $this->numeTabel;
+    }
+    
+    public function insert(){
+        if($this->numeTabel() == null) throw new Exception('Nume table invalid');
+        
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $numeProprietati = get_class_vars(get_class($this));
+        
+        $numarSemneIntreabare = 0;
+        
+        foreach ($numeProprietati as $valoare) {
+            $arraySemneIntrebare[] = "?";
+            
+        }
+        
+        $sql = "INSERT INTO " . $this->getNumeTabel() . " ( ".implode(",",$numeProprietati) . ")"
+                . " values (". implode(",", $numeProprietati);
+        
+    }
+    
+    public static function showAll($db, $tableName, $limit = 20){
+        
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM ". $tableName . " ORDER BY id DESC LIMIT " . $limit . ";";
+        $q = $db->prepare($sql);
+        $q->execute();
+        $objectReturnArray = array();
+        while ($data = $q->fetch(PDO::FETCH_ASSOC))
+        {
+//            $object = new self($db);
+//            
+//           // 
+//            foreach ($data as $key => $value) {
+//                $object->$key = $value;
+//            }
+            $objectReturnArray[$data['id']] = $data;
+//            print_r($data);
+        }
+        return $objectReturnArray;
+        
+        }
+    
     /**
      * Translates a camel case string into a string with
      * underscores (e.g. firstName -> first_name)
@@ -52,5 +105,11 @@ class BaseDB {
         //print $func;
         return preg_replace_callback('/_([a-z])/', $func, $str);
     }
+    
+//    public function afisareProprietati() {
+//        $proprietati = get_class_vars($this);
+//        return $proprietati;
+//                
+//    }
 
 }
