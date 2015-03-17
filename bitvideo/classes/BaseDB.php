@@ -30,7 +30,7 @@ class BaseDB {
     public function getNumeTabel(){
         return $this->numeTabel;
     }
-    
+    /*
     public function insert(){
         if($this->numeTabel() == null) throw new Exception('Nume table invalid');
         
@@ -49,6 +49,37 @@ class BaseDB {
                 . " values (". implode(",", $numeProprietati);
         
     }
+   */
+   
+   public function insert(){
+
+        if($this->getNumeTabel() == null) throw new Exception('Nume table invalid');
+        
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $numeProprietati = get_class_vars(get_class($this));
+        
+        $semneIntrebare = array();
+        
+        foreach ($numeProprietati as $valoare) {
+            $semneIntrebare[] = "?";
+            
+        }
+
+        foreach($numeProprietati as $proprietate) {
+            $getterProprietate = "get".ucfirst($proprietate);
+        }
+        
+        $sql = "INSERT INTO " . $this->getNumeTabel() . " ( ".join(",",$numeProprietati) . ")"
+                . " values (". join(",", $semneIntrebare);
+
+        $q = $this->db->prepare($sql);
+        $q->execute(array($getterProprietate));
+        
+    }
+   
+   
+   
    
     public static function showAll($db, $tableName, $limit = 20){
         
