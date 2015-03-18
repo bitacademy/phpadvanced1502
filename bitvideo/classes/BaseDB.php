@@ -67,14 +67,14 @@ class BaseDB {
         }
 
         foreach($numeProprietati as $proprietate) {
-            $getterProprietate = "get".ucfirst($proprietate);
+            $getterProprietate[] = "get".ucfirst($proprietate).();
         }
         
         $sql = "INSERT INTO " . $this->getNumeTabel() . " ( ".join(",",$numeProprietati) . ")"
                 . " values (". join(",", $semneIntrebare);
 
         $q = $this->db->prepare($sql);
-        $q->execute(array($getterProprietate));
+        $q->execute(array($getterProprietate[]));
         
     }
    
