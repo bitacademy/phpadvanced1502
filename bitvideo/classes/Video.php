@@ -1,95 +1,64 @@
 <?php
 
 class Video extends BaseDB {
-    
-    private $id;
-    private $url;
-    private $id_pachet;
-    private $data_publicare;
-    private $status;
-    protected $numeTabel = "video";
-    
-    public function getNumeTabel() {
-        return $this->numeTabel;
-    }
-    
-    
-     public function insert() {
-        $db = $this->db;
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO video (url, id_pachet, data_publicare, status) values(?, ?, ?, ?)";
-        $q = $db->prepare($sql);
-        $q->execute(array(
-            $this->getUrl(),
-            $this->getIdPachet(),
-            $this->getDataPublicare(),
-            $this->getStatus()
-        ));
-    }
-    
-    
-    public function update() {
-        $db = $this->db;
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "UPDATE video  set url = ?, id_pachet = ?, data_publicare = ?, status = ? WHERE id = ?";
-        $q = $db->prepare($sql);
-        $q->execute(array(
-            $this->getUrl(),
-            $this->getIdPachet(),
-            $this->getDataPublicare(),
-            $this->getStatus(),
-            $this->getId()
-        ));
-    }
-    
-    
-    public function save() {
-        if($this->getId = true){
-            $this->update();
-        }else {
-            $this->insert();
-        }
-    }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-    
-    public function getId() {
-        return $this->id;
-    }
-    
-    
+    protected $id;
+    protected $url;
+    protected $idPachet;
+    protected $dataPublicare;
+    protected $status;
+    protected $numeTabel = "video";
+
+
+
     public function setUrl($url) {
         $this->url = $url;
     }
-    
+
     public function getUrl() {
-        $this->url;
+        return $this->url;
     }
-    
+
     public function setIdPachet($id_pachet) {
-        $this->id_pachet = $id_pachet;
-    }    
-    
+        $this->idPachet = $id_pachet;
+    }
+
     public function getIdPachet() {
-        return $this->id_pachet;
+        return $this->idPachet;
     }
-    
+
     public function setDataPublicare($data_publicare){
-        $this->data_publicare = $data_publicare;
+        $this->dataPublicare = $data_publicare;
     }
-    
+
     public function getDataPublicare(){
-        return $this->data_publicare;
+        return $this->dataPublicare;
     }
-    
+
     public function setStatus($status) {
         $this->status = $status;
     }
-    
+
     public function getStatus() {
         return $this->status;
+    }
+
+    //functia prelucreaza un url youtube de forma www.youtube.com/watch?v=ID
+    //in www.youtube.com/embed/ID
+    public function parseYoutubeUrlForEmbed($youtubeUrl = null){
+        if ($youtubeUrl == null) return null;
+
+        //daca separam stringul in doua elemente in functie de =
+        //atunci vom obtine
+        //array(0 => 'www.youtube.com/watch?v', 1=>'ID')
+        $youtubeArrayTemp = explode('=', $youtubeUrl);
+        //daca nu este setat acest al doilea element, returnam null
+        if (! isset($youtubeArrayTemp[1])) return null;
+        $youtubeId = $youtubeArrayTemp[1];
+
+        $youtubeprefix = 'https://www.youtube.com/embed/';
+
+        return $youtubeprefix. $youtubeId;
     }
 }
 
