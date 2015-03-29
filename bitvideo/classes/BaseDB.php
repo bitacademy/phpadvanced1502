@@ -75,7 +75,8 @@ class BaseDB {
             //in SQL
             //am facut un array temporar ['id', 'db', 'numeTabel'] in care cautam cu
             //NOT in_array($valoarecautata, $array)
-            if (! in_array($numeProprietate, array('id', 'db', 'numeTabel')) ) {
+            $arrayExcludeKeys = array_merge($this->excludeValues, array('id', 'db','numeTabel'));
+            if (! in_array($numeProprietate, $arrayExcludeKeys) ) {
 
                 //verificam daca $valoare este null
                 //daca da, sarim peste bucla curenta prin continue;
@@ -157,7 +158,14 @@ class BaseDB {
             //in SQL
             //am facut un array temporar ['id', 'db', 'numeTabel'] in care cautam cu
             //NOT in_array($valoarecautata, $array)
-            if (! in_array($numeProprietate, array('id', 'db', 'numeTabel')) ) {
+            //anumite coloane nu ar trebui sa fie actualizate in masa
+            //de exemplu coloana parola si username de la utilizator
+            //pentru acest lucru vom specifica $excludeValues in fiecare
+            //clasa in parte, acolo unde este nevoie si
+            //o vom initializa cu array() acolo unde nu este nevoie
+            $arrayExcludeKeys = array_merge($this->excludeValues, array('id', 'db','numeTabel'));
+            if (! in_array($numeProprietate, $arrayExcludeKeys) ) {
+
 
                 //verificam daca $valoare este null
                 //daca da, sarim peste bucla curenta prin continue;
@@ -238,38 +246,54 @@ class BaseDB {
 
         while ($data = $q->fetch(PDO::FETCH_ASSOC))
         {
+                //se populeaza/creeaza un obiect cu datele din arrayul $data
+                $object = self::fill($data, $objectType);
 
+                $objectReturnArray[$data['id']] = $object;
+        }
+        return $objectReturnArray;
+
+        }
+
+    /**
+     * Functia populeaza automat un obiect pe baza unui array
+     * Apeleaza functiile de set proprietati, excluzand coloanele nedorite
+     */
+    static public function fill($data, $objectType, $db, $excludeDefaultValues = false){
             $object = new $objectType($db);
-
-
-            foreach ($data as $key => $value) {
+            foreach ($data as $coloanaTabel => $value) {
                 //$key = id_pachet
                 //$value = 1
 
                 //$key = data_publicare
                 //$value = "2015-03-01 00:00:00"
-                $proprietateClasa = self::to_camel_case($key);
+                $proprietateClasa = self::to_camel_case($coloanaTabel);
                 //idPachet = conversie('id_pachet')
                 //dataPublicare
                 $numeleFunctieiClaseiSet = "set" .   ucfirst($proprietateClasa);
 
+
+                //daca se doreste excluderea valorilor din $excludeValues din
+                //fiecare clasa
+                if ($excludeDefaultValues == true){
+
+                          $arrayExcludeKeys = array_merge($this->excludeValues, array('id', 'db','numeTabel'));
+                          if ( in_array($coloanaTabel, $arrayExcludeKeys) ) {
+                              //se sare peste coloanele nedorite
+                              continue;
+                          }
+                }
+
                 //setDataPublicare
                 $object->$numeleFunctieiClaseiSet($value);
 //                $object->setDataPublicare("2015-03-01 00:00:00");
-
-
-
 //                $object->idPachet = 1;
 //                $object->idpachet = 1;
 //                $object->dataPublicare = "2015-03-01 00:00:00";
 
             }
-            $objectReturnArray[$data['id']] = $object;
-//            print_r($data);
-        }
-        return $objectReturnArray;
-
-        }
+            return $object;
+    }
 
     /**
      * Translates a camel case string into a string with

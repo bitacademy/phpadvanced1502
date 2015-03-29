@@ -9,6 +9,10 @@ class Video extends BaseDB {
     protected $status;
     protected $numeTabel = "video";
 
+    //aceasta variabila va exclude orice coloane de tabel pe care dorim sa
+    //nu le includem in update() si insert() din BaseDB
+    protected $excludeValues = array();
+
 
 
     public function setUrl($url) {

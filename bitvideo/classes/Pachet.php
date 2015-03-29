@@ -19,16 +19,21 @@ class Pachet extends BaseDB {
     protected $sumaPlata;
     protected $numeTabel = "pachete";
 
+    //aceasta variabila va exclude orice coloane de tabel pe care dorim sa
+    //nu le includem in update() si insert() din BaseDB
+    protected $excludeValues = array();
 
-     public function returneazaPachetDupaIdVideo($idVideo) {
 
-        $db = $this->db;
-        $sql = 'SELECT id FROM `video` WHERE `id_pachet` = ?';
+    static public function returneazaPachetDupaIdVideo($db, $idVideo) {
+
+        $sql = 'SELECT `pachete`.*  FROM `pachete`, `video`
+                WHERE `pachete`.`id` = `video`.`id_pachet`
+                AND `video`.`id` = ?';
         $q = $db->prepare($sql);
         $q->execute(array($idVideo));
         $data = $q->fetch(PDO::FETCH_ASSOC);
-
-        return $data;
+        $pachet = self::fill($data, 'Pachet', $db);
+        return $pachet;
     }
 
       public function getTipPachet() {
