@@ -5,23 +5,21 @@ require ('header.php');
 <div class="container">
 
       <div class="masthead">
-        <h3 class="text-muted">Project name</h3>
+        <h3 class="text-muted">BITVIDEO</h3>
         <nav>
           <ul class="nav nav-justified">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Downloads</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
+            <li><a href="login.php">Login</a></li>
           </ul>
         </nav>
       </div>
 
       <!-- Jumbotron -->
       <div class="jumbotron">
-        <h1>Marketing stuff!</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
+        <h1>Welcome to BITVIDEO!</h1>
+        <p class="lead">Premium video subscription platform that fills your needs </p>
         <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
       </div>
 
@@ -47,7 +45,7 @@ require ('header.php');
 
       <!-- Site footer -->
       <footer class="footer">
-        <p>&copy; Company 2014</p>
+      <p>&copy; BITVIDEO <?php echo date('Y'); ?></p>
       </footer>
 
     </div>
