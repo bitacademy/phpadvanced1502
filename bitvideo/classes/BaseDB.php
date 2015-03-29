@@ -247,7 +247,7 @@ class BaseDB {
         while ($data = $q->fetch(PDO::FETCH_ASSOC))
         {
                 //se populeaza/creeaza un obiect cu datele din arrayul $data
-                $object = self::fill($data, $objectType);
+                $object = self::fill($data, $objectType,$db);
 
                 $objectReturnArray[$data['id']] = $object;
         }
