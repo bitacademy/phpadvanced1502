@@ -1,5 +1,6 @@
 <?php
 
+
 require "admin/database.php";
 require "classes/BaseDB.php";
 require "classes/Video.php";
@@ -14,6 +15,8 @@ echo "<PRE>";
 $video = new Video($pdo );
 
 //$video->setId( 5);
+//test
+
 
 $video->setUrl("http://www.youtube.com/watch?v=12345");
 $video->setIdPachet(1);
