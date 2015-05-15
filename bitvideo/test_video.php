@@ -14,6 +14,8 @@ echo "<PRE>";
 $video = new Video($pdo );
 
 //$video->setId( 5);
+//$video->setId( 5);
+//$video->setId( 5);
 
 $video->setUrl("http://www.youtube.com/watch?v=12345");
 $video->setIdPachet(1);
