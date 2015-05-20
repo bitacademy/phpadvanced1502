@@ -3,9 +3,6 @@
 session_start();
 
 
-
-
-
 require_once "admin/database.php";
 require_once "classes/BaseDB.php";
 require_once "classes/Pagina.php";
